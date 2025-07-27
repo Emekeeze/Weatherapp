@@ -1,5 +1,6 @@
 import React, { useReducer } from 'react';
 import axios from 'axios';
+import "../App.css";
 
 const initialState = {
   city: '',
@@ -71,7 +72,7 @@ export default function Weather() {
 
       {/* Loading spinner */}
       {state.loading && (
-        <div style={{ marginTop: '20px' }}>
+        <div className='loading-spinner' style={{ marginTop: '20px' }}>
           <p>Loading...</p>
           {/* Optional: use a CSS spinner here */}
         </div>
@@ -82,7 +83,7 @@ export default function Weather() {
 
       {/* Weather data */}
       {state.weather && !state.loading && (
-        <div style={{ marginTop: '20px' }}>
+        <div style={{ marginTop: '20px', }}>
           <h3>{state.weather.city}</h3>
           <p>{state.weather.temperature}°C</p>
           <p>{state.weather.description}</p>
