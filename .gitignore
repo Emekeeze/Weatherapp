@@ -1,0 +1,3 @@
+node_modules
+/weatherapp/node_modules
+/weatherapp/dist
