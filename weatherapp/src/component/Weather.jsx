@@ -72,9 +72,8 @@ export default function Weather() {
 
       {/* Loading spinner */}
       {state.loading && (
-        <div className='loading-spinner' style={{ marginTop: '20px' }}>
-          <p>Loading...</p>
-          {/* Optional: use a CSS spinner here */}
+        <div className='loading-spinner' style={{  }}>
+          
         </div>
       )}
 
