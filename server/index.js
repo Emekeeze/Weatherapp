@@ -2,8 +2,6 @@ import express from "express";
 import cors from "cors";
 import axios from "axios";
 import dotenv from "dotenv";
-import path from "path";
-import { fileURLToPath } from "url";
 
 dotenv.config();
 
@@ -13,13 +11,6 @@ const port = 5000;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-app.use(express.static(path.join(__dirname, "../weatherapp/dist")));
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../weatherapp/dist", "index.html"));
-});
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
@@ -51,6 +42,6 @@ app.post('/weather', async (req, res) => {
   }
 });
 
-app.listen(process.env.PORT || port, () => {
+app.listen(port, () => {
   console.log(`App listening on port ${port}`);
 });

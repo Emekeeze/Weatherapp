@@ -37,11 +37,10 @@ export default function Weather() {
     }
 
     dispatch({ type: 'SET_LOADING', payload: true });
-    const url = import.meta.env.VITE_API_URL + "/weather";
 
 
     try {
-      const response = await axios.post(url, {
+      const response = await axios.post("http://localhost:5000/weather", {
         city: state.city
       });
 
