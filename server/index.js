@@ -3,6 +3,7 @@ import cors from "cors";
 import axios from "axios";
 import dotenv from "dotenv";
 import path from "path";
+import { fileURLToPath } from "url";
 
 dotenv.config();
 
@@ -12,6 +13,8 @@ const port = 5000;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, "../weatherapp/dist")));
 
 app.get("*", (req, res) => {
