@@ -40,7 +40,7 @@ export default function Weather() {
 
 
     try {
-      const response = await axios.post("https://weatherapp-2-k4fv.onrender.com/weather", {
+      const response = await axios.post("https://weatherapp-4-6ft3.onrender.com/weather", {
         city: state.city
       });
 
