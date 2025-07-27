@@ -33,6 +33,9 @@ a:hover {
   -webkit-animation: spin 2s linear infinite;
   animation: spin 2s linear infinite;
   margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
 }
 

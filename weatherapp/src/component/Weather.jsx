@@ -1,26 +1,26 @@
-import React, { useReducer } from 'react';
-import axios from 'axios';
+import React, { useReducer } from "react";
+import axios from "axios";
 import "../App.css";
 
 const initialState = {
-  city: '',
+  city: "",
   weather: null,
-  error: '',
-  loading: false
+  error: "",
+  loading: false,
 };
 
 function reducer(state, action) {
   switch (action.type) {
-    case 'SET_CITY':
+    case "SET_CITY":
       return { ...state, city: action.payload };
-    case 'SET_LOADING':
+    case "SET_LOADING":
       return { ...state, loading: action.payload };
-    case 'SET_WEATHER':
-      return { ...state, weather: action.payload, error: '', loading: false };
-    case 'SET_ERROR':
+    case "SET_WEATHER":
+      return { ...state, weather: action.payload, error: "", loading: false };
+    case "SET_ERROR":
       return { ...state, error: action.payload, weather: null, loading: false };
-    case 'RESET_CITY':
-      return { ...state, city: '' };
+    case "RESET_CITY":
+      return { ...state, city: "" };
     default:
       return state;
   }
@@ -32,30 +32,44 @@ export default function Weather() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (state.city.trim() === '') {
-      alert('Please enter a city name');
+    if (state.city.trim() === "") {
+      alert("Please enter a city name");
       return;
     }
 
-    dispatch({ type: 'SET_LOADING', payload: true });
-
+    dispatch({ type: "SET_LOADING", payload: true });
 
     try {
-      const response = await axios.post("https://weatherapp-4-6ft3.onrender.com/weather", {
-        city: state.city
-      });
+      const response = await axios.post(
+        "https://weatherapp-4-6ft3.onrender.com/weather",
+        {
+          city: state.city,
+        }
+      );
 
-      dispatch({ type: 'SET_WEATHER', payload: response.data });
+      dispatch({ type: "SET_WEATHER", payload: response.data });
     } catch (err) {
       console.error(err);
-      dispatch({ type: 'SET_ERROR', payload: 'Could not fetch weather data' });
+      dispatch({ type: "SET_ERROR", payload: "Could not fetch weather data" });
     } finally {
-      dispatch({ type: 'RESET_CITY' });
+      dispatch({ type: "RESET_CITY" });
     }
   };
 
   return (
-    <div style={{ maxWidth: '400px', margin: 'auto', textAlign: 'center' }}>
+    <div
+      style={{
+        maxWidth: "400px",
+        margin: "auto",
+        textAlign: "center",
+        alignItems: "center",
+        display: "flex",
+        flexDirection: "column",
+        border: "1px solid grey",
+        borderRadius: "10px",
+        padding: "0px 20px ",
+      }}
+    >
       <h2>Weather App</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="city">City name</label>
@@ -64,25 +78,23 @@ export default function Weather() {
           placeholder="Enter city"
           required
           value={state.city}
-          onChange={(e) => dispatch({ type: 'SET_CITY', payload: e.target.value })}
-          style={{ padding: '8px', margin: '10px', width: '100%' }}
+          onChange={(e) =>
+            dispatch({ type: "SET_CITY", payload: e.target.value })
+          }
+          style={{ padding: "8px", margin: "10px", width: "90%" }}
         />
-        <input type="submit" value="Get Weather" />
+        <input type="submit" value="Get Weather" style={{ marginBottom: "5px" }} />
       </form>
 
       {/* Loading spinner */}
-      {state.loading && (
-        <div className='loading-spinner' style={{  }}>
-          
-        </div>
-      )}
+      {state.loading && <div className="loading-spinner"></div>}
 
       {/* Error message */}
-      {state.error && <p style={{ color: 'red' }}>{state.error}</p>}
+      {state.error && <p style={{ color: "red" }}>{state.error}</p>}
 
       {/* Weather data */}
       {state.weather && !state.loading && (
-        <div style={{ marginTop: '20px', }}>
+        <div style={{ marginTop: "20px" }}>
           <h3>{state.weather.city}</h3>
           <p>{state.weather.temperature}°C</p>
           <p>{state.weather.description}</p>
